@@ -1,0 +1,17 @@
+{
+    "name": "diego3/coisas-emprestadas-api",
+    "description": "projeto da pucpr",
+    "type": "project",
+    "authors": [
+        {
+            "name": "diego3",
+            "email": "www.diegosantos.com.br@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
