@@ -24,4 +24,8 @@ abstract class BaseController {
     protected function render($view) {
         require $view;
     }
+
+    protected function getLoggedUser() {
+        return $this->session->get("user");
+    }
 }

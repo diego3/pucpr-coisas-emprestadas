@@ -6,7 +6,7 @@ use App\Service\UserService;
 class LoginController extends BaseController {
     private $userService;
     protected $needLogin = false;
-    private $error;
+    public $error;
 
     public function __construct($app) {
         parent::__construct($app);

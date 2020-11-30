@@ -79,7 +79,11 @@
 .card {
     min-width: 170px;
     max-width: 100px;
-    
+}
+
+.card:hover {
+    cursor: pointer;
+    box-shadow: -6px 3px 12px 0px #cccccc;
 }
 
 .card-img-top {

@@ -17,8 +17,8 @@
         <section class="left-panel column">
             <ul>
                 <li id="menu-usuarios">Usuários</li>
-                <li id="menu-emprestimos">Empréstimos</li>
                 <li id="menu-itens">Itens</li>
+                <li id="menu-emprestimos">Empréstimos</li>
             </ul>
         </section>
         
@@ -50,6 +50,33 @@
             </div>
         </section>
 
+        <div class="form-modal" id="modalUser">
+            <form action="#">
+                <h4 class="title">Novo usuário</h4>
+                <input type="text" id="userName"  placeholder="O nome do usuário" required> 
+                <input type="email" id="userEmail"  placeholder="O e-mail do usuário" required>
+                <input type="text" id="userPassword"  placeholder="A senha do usuário" required>
+                <input type="text" id="userRole"  placeholder="O papel do usuário" required>
+
+                <button type="button" class="button" id="btnSalvar">Salvar</button>
+                
+                <div class="error">Não foi possível salvar</div>
+                <div class="success">Criado com sucesso</div>
+            </form>
+        </div>
+
+        <div class="form-modal" id="modalItem">
+            <form action="#">
+                <h4 class="title">Novo item</h4>
+                <input type="text" id="itemName"  placeholder="O nome do item" required> 
+                <input type="text" id="itemThumb"  placeholder="A imagem de capa do item" required>
+
+                <button type="button" class="button" id="btnSalvarItem">Salvar</button>
+                
+                <div class="error">Não foi possível salvar</div>
+                <div class="success">Criado com sucesso</div>
+            </form>
+        </div>
         <!-- 
         <div class="card">
             <img class="card-img-top" src="" alt="Imagem de capa">

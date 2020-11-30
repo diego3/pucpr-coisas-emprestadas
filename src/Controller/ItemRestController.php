@@ -20,7 +20,7 @@ class ItemRestController extends BaseRestController {
         $payload = $this->getRequestPayload();
         $item = new Item();
         $item->name = $payload->name;
-        $item->owner = $payload->owner;
+        $item->owner = 1;//$payload->owner;
         $item->thumb = $payload->thumb;
 
         $newItem = $this->service->insert($item);

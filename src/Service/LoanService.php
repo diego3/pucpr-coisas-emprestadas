@@ -28,6 +28,7 @@ class LoanService {
 
     /**
      * Cria um novo empréstimo
+     * @return Loan
      */
     public function insert($loan) {
         $params = [
@@ -36,23 +37,35 @@ class LoanService {
            "contact" => $loan->contact
         ];
 
+        $newId = null;
         if (empty($loan->devolution)) {
-            return DB::executeInsert("INSERT INTO loan (id_user, id_item, loanAt, contact) 
+            $newId = DB::executeInsert("INSERT INTO loan (id_user, id_item, loanAt, contact) 
             VALUES (:id_user, :id_item, now(), :contact)", $params);
         } else {
-            $params["devolution"] = $this->convertDateToMyslFormat($loan->devolution);//DATE
-            return DB::executeInsert("INSERT INTO loan (id_user, id_item, loanAt, devolution) 
+            $params["devolution"] = $this->convertDateToMysqlFormat($loan->devolution);//DATE
+            $newId =  DB::executeInsert("INSERT INTO loan (id_user, id_item, loanAt, contact, devolution) 
             VALUES (:id_user, :id_item, now(), :contact, :devolution)", $params);
         }
+        if (empty($newId)) {
+            return null;
+        }
+        return $this->findById($newId);
     }
     
     /**
      * @return string
      */
-    private function convertDateToMyslFormat($date) {
+    private function convertDateToMysqlFormat($date) {
+        if (strpos("-", $date) !== false) {
+            return $date;
+        }
+
         $parts = explode("/", $date);
         if (empty($parts)) {
             return null;
+        }
+        if (count($parts) < 3) {
+            return $date;
         }
         return $parts[2]."-".$parts[1]."-".$parts[0];
     }

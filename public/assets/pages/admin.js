@@ -7,10 +7,17 @@ window.onload = function() {
     const containerUsers = document.getElementById("container-users");
     const tableUsersTbody = document.querySelectorAll("#table-users tbody")[0];
     const btnNovo = document.getElementById("btnNovo");
+    const modalUser = document.getElementById("modalUser");
+    const btnSalvar = document.getElementById("btnSalvar");
+    const btnSalvarItem = document.getElementById("btnSalvarItem");
+    const modalItem = document.getElementById("modalItem");
+    let componenteAtual = "LISTAGEM_USUARIOS";
 
     menuUsuarios.addEventListener("click", renderListagemUsuarios)
     menuItens.addEventListener("click", renderListagemItens)
-    btnNovo.addEventListener("click", abreFormulario);
+    btnNovo.addEventListener("click", abrirFormulario);
+    btnSalvar.addEventListener("click", criarUsuario);
+    btnSalvarItem.addEventListener("click", criarItem);
 
     function createCard(thumb, titulo, textoButton, redirectTo, texto) {
         let card = document.createElement("div")
@@ -45,6 +52,7 @@ window.onload = function() {
 
     function createUserRow(name, email, active, role) {
         let tr = document.createElement("tr");
+        tr.classList.add("user");
         let tdName = document.createElement("td");
         let tdEmail = document.createElement("td");
         let tdActive = document.createElement("td");
@@ -67,9 +75,9 @@ window.onload = function() {
         nodes.forEach(node => {
             node.remove();
         });
+        componenteAtual = "LISTAGEM_USUARIOS";
 
         get("/rest/users").then(users => {
-            console.log("users", users);
             for(let i=0; i< users.length; i++) {
                 let user = users[i];
                 let userRow = createUserRow(user.name, user.email, user.active === "1" ? "SIM" : "NÃO" , user.role);
@@ -86,6 +94,7 @@ window.onload = function() {
         nodes.forEach(node => {
             node.remove();
         });
+        componenteAtual = "LISTAGEM_ITENS";
 
         get("/rest/itens").then(items => {
             console.log("items", items);
@@ -97,11 +106,49 @@ window.onload = function() {
         });
     }
 
-    function abreFormulario() {
-        
+    function criarUsuario() {
+        let payload = {
+            name: document.getElementById("userName").value,
+            email: document.getElementById("userEmail").value,
+            password: document.getElementById("userPassword").value,
+            role: document.getElementById("userRole").value
+        };
+      
+        let response = post("/rest/new-user", JSON.stringify(payload));
+        let success = document.querySelectorAll(".form-modal .success")[0];
+        success.style.display = "inline";
+        setTimeout(function(evt) {
+            modalUser.style.opacity = 0;        
+            success.style.display = "none";
+            renderListagemUsuarios();
+        }, 2000);
+    }
+
+    function criarItem() {
+        let payload = {
+            name: document.getElementById("itemName").value,
+            thumb: document.getElementById("itemThumb").value,
+        };
+      
+        let response = post("/rest/new-item", JSON.stringify(payload));
+        let success = document.querySelectorAll(".form-modal .success")[0];
+        success.style.display = "inline";
+        setTimeout(function(evt) {
+            modalItem.style.opacity = 0;        
+            success.style.display = "none";
+            renderListagemItens();
+        }, 2000);
+    }
+
+    function abrirFormulario() {
+        if (componenteAtual === "LISTAGEM_USUARIOS") {
+            modalUser.style.opacity = 1;
+        } else if (componenteAtual === "LISTAGEM_ITENS"){
+            modalItem.style.opacity = 1;
+        }
     }
 
     // INICIALIZAÇÂO
-//    renderListagemItens();
-    renderListagemUsuarios();
+    renderListagemItens();
+    //renderListagemUsuarios();
 }
