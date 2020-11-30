@@ -16,7 +16,7 @@ class LoginController extends BaseController {
 
     public function index() {
         
-        require "public/pages/login/login.php";
+        $this->render("public/pages/login/login.php");
     }
 
     public function submit() {

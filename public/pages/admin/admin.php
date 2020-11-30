@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <script src="public/global.js"></script>
     <link rel="stylesheet" href="public/assets/pages/admin.css">
 
     <title>Admin :: </title>
@@ -29,6 +30,24 @@
             <div id="container-cards" class="container-cards">
 
             </div>
+            <div id="container-users" class="container-users">
+                <table id="table-users" class="table">
+                    <thead>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Ativo</th>
+                        <th>Papel</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Diego</td>
+                            <td>diego@gamil.com</td>
+                            <td>Sim</td>
+                            <td>Admin</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
         <!-- 
@@ -41,13 +60,7 @@
             </div>
         </div> 
     
-        <table id="table-itens" class="table">
-                <thead>
-                    <th>Nome</th>
-                    <th>Dono</th>
-                    <th>Imagem de capa</th>
-                </thead>
-            </table>
+        
         -->
 
     </section>

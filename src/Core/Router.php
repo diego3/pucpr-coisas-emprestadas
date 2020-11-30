@@ -19,6 +19,8 @@ class Router {
 
     private $wasControllerMatch;
 
+    private $id;
+
     public function __construct($config) {
         $this->server = $_SERVER;
         $this->routes = $config;
@@ -27,11 +29,9 @@ class Router {
     }
 
     public function execute() {
-        // parse do uri
-        //$parse = parse_url($uri);
-
         $uri = $this->server["REQUEST_URI"];    
-        
+        $uri = $this->checkId($uri);
+
         // match com a rota configurada
         foreach($this->routes as $route => $config) {
             if ($route == $uri) {
@@ -39,13 +39,28 @@ class Router {
                 $this->controllerClass = "App\\Controller\\".ucfirst($className)."Controller";
                 $this->controllerMethod = $methodName;
                 $this->wasControllerMatch = true;
-
-                if (strpos($route, "rest") !== false) {
-                    $this->isRest = true;
+                
+                if (strpos($route, "/") !== false) {
+                    $parts = explode("/", $route);
+                    $first = $parts[0];
+                    if (strpos($first, "rest") !== false) {
+                        $this->isRest = true;
+                    }
                 }
                 break;
             }
         }
+    }
+
+    protected function checkId($uri) {
+        $parts = explode("/", $uri);
+        $last = $parts[count($parts)-1];
+        if (!empty($last) && $last > 0) {
+            $this->id = (int)$last; 
+            $newUri = str_replace("/".$last, "", $uri);
+            return $newUri;
+        } 
+        return $uri;
     }
 
     public function getControllerClass() {
@@ -65,5 +80,9 @@ class Router {
 
     public function isRest() {
         return $this->isRest;
+    }
+
+    public function getId() {
+        return $this->id;
     }
 }

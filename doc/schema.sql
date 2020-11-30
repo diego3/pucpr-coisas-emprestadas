@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS `coisas_emprestadas`.`loan` (
   `id_item` INT NOT NULL,
   `id_user` INT NOT NULL,
   `loanAt` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `contact` LONGTEXT NULL,
   `devolution` DATE NULL,
   `devolvedAt` DATETIME NULL,
   PRIMARY KEY (`id`),

@@ -4,13 +4,12 @@ namespace App\Model;
 class Loan {
     /**
      * The loaned item
-     * @var App\Model\Item
      */
-    public $item;
+    public $id_item;
     /**
      * Who loan the item
      */
-    public $user;
+    public $id_user;
     /**
      * When the item was loaned
      * @var Datetime
@@ -26,4 +25,6 @@ class Loan {
      * @var Datetime
      */
     public $devolution_at;
+
+    public $contact;
 }

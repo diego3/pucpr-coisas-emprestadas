@@ -20,4 +20,8 @@ abstract class BaseController {
         header("Location: ".$page);
         exit;
     }
+
+    protected function render($view) {
+        require $view;
+    }
 }

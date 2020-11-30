@@ -1,34 +1,4 @@
-.container {
-    display: flex;
-    max-width: 600px;
-    margin: 0 auto;
-    border: solid 1px blue;
-    flex-direction: column;
-}
 
-form {
-    display: inline-grid;
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-form input {
-    padding: 2px 12px;
-    margin-bottom: 5px;
-    border: 1px solid blue;
-    appearance: none;
-    min-width: 300px;
-    min-height: 25px;
-}
-
-form input:focus {
-    border: 1px solid blue;
-    outline: none;
-}
-
-.container .title {
-    align-self: center;
-}
 
 .container .email {
 
@@ -38,22 +8,6 @@ form input:focus {
 
 }
 
-.container .entrar {
-    background-color: #3B4AA1;
-    padding: 5px 2px;
-    margin-bottom: 4px;
-    color: #fff;
-    font-weight: bold;
-    text-transform: uppercase;
-}
 
-.container .entrar:hover {
-    background-color: rgb(23, 11, 129);
-    cursor: pointer;
-}
-.error {
-    margin-bottom: 40px;
-    color: orangered;
-    text-align: center;
-}
+
 

@@ -4,27 +4,13 @@ window.onload = function() {
     const menuItens = document.getElementById("menu-itens");
     const tituloListagem = document.getElementById("titulo-listagem");
     const containerCards = document.getElementById("container-cards");
+    const containerUsers = document.getElementById("container-users");
+    const tableUsersTbody = document.querySelectorAll("#table-users tbody")[0];
+    const btnNovo = document.getElementById("btnNovo");
 
     menuUsuarios.addEventListener("click", renderListagemUsuarios)
     menuItens.addEventListener("click", renderListagemItens)
-
-    async function post(url, body) {
-        let response = await fetch(url, {
-            method: 'POST',
-            headers: new Headers({
-              'Content-Type': 'application/json'
-            }),
-            body: body
-          });
-        let json = await response.json();
-        return json();
-    }
-
-    async function get(url, params) {
-        let response = await fetch(url);
-        let json = await response.json();
-        return json;
-    }
+    btnNovo.addEventListener("click", abreFormulario);
 
     function createCard(thumb, titulo, textoButton, redirectTo, texto) {
         let card = document.createElement("div")
@@ -57,16 +43,51 @@ window.onload = function() {
         return card;
     }
 
+    function createUserRow(name, email, active, role) {
+        let tr = document.createElement("tr");
+        let tdName = document.createElement("td");
+        let tdEmail = document.createElement("td");
+        let tdActive = document.createElement("td");
+        let tdRole = document.createElement("td");
+
+        tdName.textContent = name;
+        tdEmail.textContent = email;
+        tdActive.textContent = active;
+        tdRole.textContent = role;
+
+        tr.append(tdName, tdEmail, tdActive, tdRole);
+        return tr;
+    }
+
     function renderListagemUsuarios() {
         tituloListagem.textContent = "Lista de usuários";
+        containerCards.style.display = "none";
+        containerUsers.style.display = "block";
+        let nodes = document.querySelectorAll(".user");
+        nodes.forEach(node => {
+            node.remove();
+        });
+
         get("/rest/users").then(users => {
             console.log("users", users);
+            for(let i=0; i< users.length; i++) {
+                let user = users[i];
+                let userRow = createUserRow(user.name, user.email, user.active === "1" ? "SIM" : "NÃO" , user.role);
+                tableUsersTbody.append(userRow)
+            }
         });   
     }
 
     function renderListagemItens() {
         tituloListagem.textContent = "Lista de itens de empréstimos";
-        get("/rest/item").then(items => {
+        containerCards.style.display = "flex";
+        containerUsers.style.display = "none";
+        let nodes = document.querySelectorAll(".card");
+        nodes.forEach(node => {
+            node.remove();
+        });
+
+        get("/rest/itens").then(items => {
             console.log("items", items);
             for(let i=0; i< items.length; i++) {
                 let item = items[i];
@@ -76,9 +97,11 @@ window.onload = function() {
         });
     }
 
-    
+    function abreFormulario() {
+        
+    }
+
     // INICIALIZAÇÂO
-
-    renderListagemItens();
-
+//    renderListagemItens();
+    renderListagemUsuarios();
 }

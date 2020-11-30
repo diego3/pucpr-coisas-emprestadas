@@ -6,6 +6,6 @@ class AdminController extends BaseController {
 
     public function index() {
 
-        return "public/pages/admin/admin.php";
+        $this->render("public/pages/admin/admin.php");
     }
 }

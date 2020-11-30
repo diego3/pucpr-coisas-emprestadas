@@ -15,26 +15,21 @@ class Application {
 
     public function start() {
         $this->router->execute();
-        if ( !$this->router->isRest()) {
+        if (!$this->router->isRest()) {
             $this->session->start();
         }
 
         if (!$this->router->wasControllerMatch()) {
-            echo "erro 404: rota não encontrada";exit;    
+            header("Content-Type: application/json");
+            http_response_code(404);
+            echo json_encode(["erro 404" => "rota não encontrada"]);
+            exit;    
         }
 
         $class = $this->router->getControllerClass();
         $methodName = $this->router->getControllerMethod();
         $controller = new $class($this);
-        $response = $controller->$methodName();
-
-        if ($this->router->isRest()) {
-            header("Content-Type: application/json");
-            echo json_encode($response);
-        }
-        else if($response) {
-            require $response;
-        }
+        $controller->$methodName($this->router->getId());
     }
 
 }

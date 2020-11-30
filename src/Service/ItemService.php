@@ -12,6 +12,12 @@ class ItemService {
         return DB::executeQuery($sql, [], new Item());
     }
 
+    public function findById($id) {
+        $sql = "SELECT * FROM item WHERE id = :id";
+        
+        return DB::fetchOne($sql, ["id" => $id], new Item());
+    }
+
     public function insert($item) {
         $params = [
            "name" => $item->name,
