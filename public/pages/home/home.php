@@ -43,6 +43,17 @@
                 <div class="success">Empréstimo realizado com sucesso</div>
             </form>
         </div>
+
+        <div class="form-modal" id="modalDevolucao">
+            <form action="#">
+                <h4 class="title" id="modalDevolucaoTitle">Emprestar este item</h4>
+                <button type="button" class="button" id="btnConfirmarDevolucao">Confirmar devolução</button>
+                <button type="button" class="button cancelar" id="btnCancelarDevolucao">Cancelar</button>
+
+                <div class="error">Não foi possível gerar a devolução do item</div>
+                <div class="success">Empréstimo realizado com sucesso</div>
+            </form>
+        </div>
         
     </section>
 

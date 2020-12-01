@@ -79,6 +79,7 @@
 .card {
     min-width: 170px;
     max-width: 100px;
+    position: relative;
 }
 
 .card:hover {
@@ -159,4 +160,30 @@ table td {
     display: none;
     color: green;
     font-weight: bold;
+}
+
+.entrega-atrasada {
+    width: 142px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    position: absolute;
+    left: -8px;
+    top: 12px;
+    background-color: red;
+    color: #ffffff;
+}
+
+.emprestado {
+    width: 142px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    position: absolute;
+    left: -8px;
+    top: 12px;
+    background-color: green;
+    color: #ffffff;
+}
+
+.entrega-atrasada span {
+    padding: 5px;
 }

@@ -15,6 +15,11 @@ class ItemRestController extends BaseRestController {
         $itens = $this->service->findAll();
         $this->sendJson($itens);
     }
+    
+    public function findAllForHomePage() {
+        $itens = $this->service->findAllForHomePage();
+        $this->sendJson($itens);
+    }
 
     public function createItem() {
         $payload = $this->getRequestPayload();

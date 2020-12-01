@@ -34,6 +34,12 @@ class DB {
         return $statment->fetchAll(PDO::FETCH_CLASS, $reflect->getName()); 
     }
 
+    public static function fetchAllArray($sql, array $params) {
+        $statment = self::prepareAndExecute($sql, $params);
+        
+        return $statment->fetchAll(PDO::FETCH_ASSOC); 
+    }
+
     public static function fetchOne($sql, array $params, $object) {
         return current(self::executeQuery($sql, $params, $object, true));
     }

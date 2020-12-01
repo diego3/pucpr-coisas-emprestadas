@@ -37,4 +37,11 @@ class LoanRestController extends BaseRestController {
         $newLoan = $this->service->insert($loan);
         $this->sendJson($newLoan);
     }
+
+    public function registerDevolution() {
+        $payload = $this->getRequestPayload();
+        $loan = new Loan();
+        $loan->id = $payload->id_item;
+        $this->sendJson($this->service->registerDevolution($loan));
+    }
 }
