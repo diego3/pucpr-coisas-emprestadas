@@ -51,7 +51,6 @@ class DB {
 
     /**
      * Insere e retorna o ultimo ID inserido
-     * Remember, if you use a transaction you should use lastInsertId BEFORE you commit otherwise it will return 0
      */
     public static function executeInsert($sql, array $params) {
         self::prepareAndExecute($sql, $params);
