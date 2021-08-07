@@ -45,7 +45,7 @@ if (navigator.mediaDevices.getUserMedia) {
   let onSuccess = function(stream) {
     const mediaRecorder = new MediaRecorder(stream, {
       audioBitsPerSecond : 128000,
-      mimeType : AUDIO_MIME_TYPE
+      mimeType : "audio/webm"
    });
 
     visualize(stream);
@@ -101,9 +101,9 @@ if (navigator.mediaDevices.getUserMedia) {
       soundClips.appendChild(clipContainer);
 
       audio.controls = true;
-      const blob = new Blob(chunks, { 'type' :  "audio/webm"});
+      const blob = new Blob(chunks, { 'type' :  "audio/wav"});
 
-      speechToText("I'm not sad", blob, clipLabel);
+      speechToText("Hello World", blob, clipLabel);
 
       chunks = [];
       const audioURL = window.URL.createObjectURL(blob);
@@ -412,16 +412,17 @@ async function speechToText(question, blob, htmlEl) {
   let json = {
     "text": question,
     "voice": b64,
-    "audioFormat": AUDIO_MIME_TYPE,
-    "provider": "GOOGLE"
+    "audioFormat": 'wav'
+    //"provider": "AMAZON"
   }
   
-  const rawResponse = await fetch('http://localhost:8180/ai/language-processing/base64', {
+  const rawResponse = await fetch('http://localhost:8280/speech-to-text', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
+    //mode: 'no-cors',
     body: JSON.stringify(json)
   });
 
@@ -445,7 +446,7 @@ async function speechToText(question, blob, htmlEl) {
     speechMatch = "speech-right";
   }
   const span = document.createElement("span");
-  span.textContent = "  "+content.payload.transcript;
+  span.textContent = "  "+content.payload.IBM.transcript;
   span.classList.add(speechMatch);
   htmlEl.appendChild(span);
 }
